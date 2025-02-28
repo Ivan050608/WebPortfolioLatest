@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500;600&family=Roboto+Mono:wght@400&display=swap');
+/* General Styles */
+/* body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    background: url('https://images4.alphacoders.com/552/thumb-1920-552002.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+} */
+
+/* Root Variables for Light & Dark Mode */
+:root {
+    --primary-bg: #111;
+    --secondary-bg: rgba(0, 0, 0, 0.7);
+    --primary-text: #fff;
+    --secondary-text: #ddd;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --card-hover-bg: rgba(255, 255, 255, 0.2);
+    --btn-bg: #222;
+    --btn-hover-bg: #333;
+}
+
+/* Light Mode Variables */
+.light-mode {
+    --primary-bg: #f5f5f5;
+    --secondary-bg: #ffffff;
+    --primary-text: #111;
+    --secondary-text: #333;
+    --card-bg: rgba(0, 0, 0, 0.05);
+    --card-hover-bg: rgba(0, 0, 0, 0.1);
+    --btn-bg: #ddd;
+    --btn-hover-bg: #bbb;
+}
+
+/* General Styles */
+body {
+    
+    background: var(--primary-bg);
+    color: var(--primary-text);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar,
+.sidebar-one {
+    background: var(--secondary-bg);
+    border-right: 1px solid var(--card-bg);
+    transition: background 0.3s ease;
+}
+
+/* Buttons */
+button {
+    background: var(--btn-bg);
+    color: var(--primary-text);
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background: var(--btn-hover-bg);
+}
+
+/* Theme Toggle Button */
+.toggle-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    color: var(--primary-text);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+Material Symbols Style
+.material-symbols-outlined {
+    font-size: 32px;
+    user-select: none;
+}
+
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    transition: background 0.3s ease;
+}
+
+.card:hover {
+    background: var(--card-hover-bg);
+}
+
+/* Light Mode Icon */
+.toggle-btn.light-mode-icon::before {
+    content: '🌞'; /* Sun emoji */
+}
+
+.toggle-btn.dark-mode-icon::before {
+    content: '🌙'; /* Moon emoji */
+}
+
+
+/* Sidebar 1 (Navigation) */
+.sidebar-one {
+    width: 80px;
+    height: 100vh;
+    position: fixed;
+    background: rgba(26, 26, 26, 0.7);
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 2px 0px 10px rgba(255, 255, 255, 0.05);
+    z-index: 1050;
+    backdrop-filter: blur(10px);
+}
+
+/* Sidebar 2 (Profile & Contact) */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    left: 80px;
+    background: rgba(43, 43, 43, 0.7);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 2px 0px 15px rgba(255, 255, 255, 0.1);
+    z-index: 1050;
+    backdrop-filter: blur(10px);
+}
+
+
+/* Main Content */
+.content {
+    margin-left: 330px;
+    width: calc(100% - 330px);
+    padding: 30px;
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    background: rgba(0, 0, 0, 0.8);
+    min-height: 100vh;
+    color: white;
+    line-height: 1.8;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+
+/* Adjust content when sidebar is hidden */
+.sidebar-one:not(.active) + .sidebar:not(.active) + .content {
+    margin-left: 0;
+    width: 100%;
+}
+
+.contact-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+.contact-links img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-links img:hover {
+    transform: scale(1.1);
+}
+/* Responsive Fixes */
+@media screen and (max-width: 1024px) {
+    .content {
+        margin-left: 80px; /* Only sidebar-one is visible */
+        width: calc(100% - 80px);
+    }
+
+    .sidebar {
+        left: -250px; /* Hide sidebar by default */
+    }
+
+    .sidebar.active {
+        left: 80px;
+    }
+
+    .content.sidebar-active {
+        margin-left: 330px; /* Adjust when sidebar is open */
+        width: calc(100% - 330px);
+    }
+    
+}
+
+/* Mobile & Responsive Styles */
+@media screen and (max-width: 768px) {
+    .sidebar-one,
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Show sidebar when active */
+    .sidebar-one.active,
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Adjust Carousel Cards */
+    .col-md-4 {
+        width: 100%;
+    }
+
+}
+
+
+/* Hamburger Menu */
+.menu-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #222;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1100;
+    transition: background 0.3s ease;
+}
+.menu-btn:hover {
+    background: #222;
+}
+.sidebar-one .nav-link {
+    color: white;
+    font-size: 22px;
+    padding: 15px;
+    display: block;
+    text-align: center;
+    transition: background 0.3s;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.sidebar-one .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Projects Section */
+#projects {
+    text-align: center;
+    padding: 60px 0;
+}
+
+#projects h2 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+}
+
+/* Tools Section */
+#tools {
+    padding: 60px 0;
+    border-radius: 12px;
+    text-align: center;
+}
+
+#tools h2 {
+    color: white;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+}
+
+/* Tool Icons */
+.tool-img {
+    width: 85px;
+    height: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+/* Hover Effect */
+.tool-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tool-img {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tool-img {
+        width: 60px;
+    }
+}
+
+/* Slider Container */
+.slider-container {
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* Slider Wrapper */
+.slider-wrapper {
+    display: flex;
+    gap: 15px;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Slide */
+.slide {
+    display: inline-block;
+    width: 350px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+    position: relative;
+}
+
+/* Default Image Style */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Apply zoom to the clicked image */
+.slide.active {
+    transform: scale(1.15);
+    z-index: 2;
+}
+
+/* Blur out other images only when an image is clicked */
+.slider-wrapper.clicked .slide:not(.active) {
+    filter: blur(5px);
+    transform: scale(0.85);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1024px) {
+    .slider-container {
+        max-width: 90%;
+    }
+    .slide {
+        width: 350px;
+        height: 260px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .slider-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .slide {
+        width: 300px;
+        height: 220px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .slide {
+        width: 250px;
+        height: 180px;
+    }
+}
